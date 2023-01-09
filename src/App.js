@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Movies from "./components/movies";
 import { ToastContainer } from "react-toastify";
 import { Redirect, Route, Switch } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import Rentals from "./components/rentals";
 import Customers from "./components/customer";
 import NotFound from "./components/notFound";
@@ -12,18 +11,15 @@ import LoginForm from "./components/loginForm";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "./components/logout";
 import RegisterForm from "./components/registerForm";
+import auth from "./services/authService";
 import "./App.css";
 
 class App extends Component {
   state = {};
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
-      this.setState({ user });
-    } catch (err) {}
+    const user = auth.getCurrentUser();
+    this.setState({ user });
   }
-
   render() {
     return (
       <React.Fragment>
