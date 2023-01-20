@@ -101,6 +101,7 @@ class Movies extends Component {
       selectedGenre,
       searchQuery,
     } = this.state;
+    const { user } = this.props;
     if (count === 0) return "There are no movies in Database";
 
     const { totalCount, data: movies } = this.getPagedData();
@@ -114,13 +115,15 @@ class Movies extends Component {
           ></ListGroup>
         </div>
         <div className="col">
-          <Link
-            to="movies/new"
-            className="btn btn-primary"
-            style={{ marginBottom: 20 }}
-          >
-            New Movie
-          </Link>
+          {user && (
+            <Link
+              to="movies/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+            >
+              New Movie
+            </Link>
+          )}
           <p>Showing {totalCount} movies from Database</p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
